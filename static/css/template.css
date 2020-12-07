@@ -1,3 +1,25 @@
-h1{
-    color: green;
+body {
+    background-color: #20b2aa;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+img{
+  display: block;
+  margin: auto;
+  margin-top: 10vh;
+  width: 30%;
+}
+
+button{
+    display: block;
+    margin: auto;
+}
+#link {
+    color:white;
+    margin: auto;
+    text-align: center;
+}
+
+a{
+    color: white;
 }
