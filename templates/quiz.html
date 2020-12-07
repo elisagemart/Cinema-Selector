@@ -6,9 +6,11 @@
     <link rel="stylesheet" href="{{ url_for('static',    filename='css/quiz.css') }}">
   </head>
   <body>
-    <form action="{{ url_for('quiz') }}">
-      <button type="submit" value="1">Tom Hanks</button>
-      <button type="submit" value="2">Tom Cruise</button>
+    <h2>What are you in the mood for?</h2>
+    <h3>{{answer}}</h3>
+    <form action="{{ url_for('quiz') }}" method="post">
+      <button type="submit" name="submit_btn" value="1">Tom Hanks</button>
+      <button type="submit" name="submit_btn" value="2">Tom Cruise</button>
     </form>
   </body>
 </html>

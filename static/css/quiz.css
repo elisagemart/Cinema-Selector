@@ -6,5 +6,18 @@ body {
 
 form{
     display: inline-block;
-    margin-top: 15vh
+    margin-top: 7vh
+}
+
+h2{
+    margin-top:20vh;
+}
+
+button{
+    width: 150px;
+    height: 150px;
+    background-color: #1d9e98;
+    color: white;
+    font-size: 30px;
+    margin: 20px;
 }
