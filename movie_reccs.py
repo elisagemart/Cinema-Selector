@@ -29,7 +29,7 @@ def quiz():
       answers_df = pandas.read_csv('questions_db.csv')
       
       #change this to change the number of questions
-      for k in range(7):
+      for k in range(4):
          #pick an answer at random
          answer_1 = random.randrange(0, len(answers_df))
          count = 0
@@ -59,7 +59,6 @@ def quiz():
 
          questions.append([format_answer(answer_1), format_answer(answer_2)])
       session['questions'] = questions
-      print(questions)
 
       #set initial number of questions to 0
       session['q_asked'] = 0
@@ -85,7 +84,7 @@ def quiz():
       #make reccomendation
       movies_df = pandas.read_csv('movies_db.csv')
 
-      #return movie represented as [Title, Popularity, <genre vec>, <mood vec>]
+      #return movie represented as [Title, Popularity, <genre vec>, <mood vec>, Image Url, Overview]
       def format_movie(movie):
          genre_vec = [0]*len(genre_titles)
          mood_vec = [0]*len(mood_titles)
@@ -93,25 +92,27 @@ def quiz():
             genre_vec[i] = int(movies_df[genre_titles[i]][movie])
          for i in range(len(mood_titles)):
             mood_vec[i] = int(movies_df[mood_titles[i]][movie])
-         return [movies_df['Title'][movie], int(movies_df['Popularity'][movie]), genre_vec, mood_vec]
+         image = "https://lh3.googleusercontent.com/proxy/p8Kz642g_nud-IC-r-YKeip7psx0mYbr7SWU2uuo4B9AJfsYhOn0ovWcL9ne53FiOXw8eQwzHwFXucPbAMHxu3wogkYpUPf1Et-XDcC8YG-EmIvlVgvh7tooLQkZJGcXIqnwxoKH6L7ln5PRNmWXTBgdWY7kd3udrTfneahCnoRdvNzdGW8a0DBVWGuOwFnjnUCJTIqV__oU9qzAhFMy5HBO58h7qdrB6p-jN65PKFLP1j-PexHqloL8VnWc5CAyAtDF0pTb44eeeOvf8xTxBj6a2Pkqz_XJhtg28VHbtDlbV7P4DTJqjfJcSHnh06wqSTmvlff_Ph4dojx9u7L2UAFfOeTlgZLGLJqgaQzUmUXPi4CTJA_9OfqBYnsbfn0S-Im0ghb9qa0CjrvegggYEpyzdZOH4ddiYwaeTui1jP1lHRWTBAgy16P-Y9y2emxJCQJbREvs4l6u9tKC3UY1nh9FRQPsiKUzr1zrxIIqaXHjtlMpPWoZ-0hr_DJFFpjqQP9i-fcs2HNtj7pZnHCbKur8QOuBdbnkwP1l3fPOLg9vkSMQ6uX5axveUtr-gWNFV_lbIBc"
+         if movies_df['Poster_Image'][movie] != "NONE":
+            image = movies_df['Poster_Image'][movie]
+         return [movies_df['Title'][movie], int(movies_df['Popularity'][movie]), genre_vec, mood_vec, image, movies_df['Overview'][movie]]
 
       movies = []
       for i in range(len(movies_df)):
          movies.append(format_movie(i))
       
       #algorithm for determining a movie's relevance to the user.
-      #takes movies as [Title, Popularity, <genre vec>, <mood vec>] and user's genre and mood vecs
+      #takes movies as [Title, Popularity, <genre vec>, <mood vec>, Image, Overview] and user's genre and mood vecs
       def relevance(movie):
          genre_sim = 1 - spatial.distance.cosine(movie[2], session['user_genre'])
          mood_sim = 1 - spatial.distance.cosine(movie[3], session['user_moods'])
          return (2.3 * genre_sim + mood_sim) * (movie[1]**(1/float(11)))
       
       movies.sort(reverse=True, key=relevance)
-      for i in range(20):
-         print(movies[i][0])
+      recc_list = movies[0:18]
 
       #give user reccomendation
-      return render_template('recc.html')
+      return render_template('recc.html', recc_list = recc_list)
 
    #else give user new questions
    else:

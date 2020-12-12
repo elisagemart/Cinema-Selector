@@ -23,3 +23,8 @@ button{
 a{
     color: white;
 }
+
+.title{
+    display:block;
+    margin: auto;
+}
