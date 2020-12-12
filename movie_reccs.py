@@ -25,12 +25,17 @@ def quiz():
       
       #load questions, taking answers at random
       questions = []
+      q_asked = []
       answers_df = pandas.read_csv('questions_db.csv')
       
       #change this to change the number of questions
-      for k in range(5):
+      for k in range(7):
          #pick an answer at random
          answer_1 = random.randrange(0, len(answers_df))
+         count = 0
+         while answer_1 in q_asked and count < 100:
+            answer_1 = random.randrange(0, len(answers_df))
+            count+=1
 
          #pick second answer from same category at random
          answer_2 = -1
@@ -38,6 +43,9 @@ def quiz():
             choice = random.randrange(0, len(answers_df))
             if choice != answer_1 and answers_df['Category'][choice] == answers_df['Category'][answer_1]:
                answer_2 = choice
+         
+         q_asked.append(answer_1)
+         q_asked.append(answer_2)
 
          #returns answers in format [Name, <genre_vec>, <mood_vec>]
          def format_answer(answer):
@@ -96,7 +104,7 @@ def quiz():
       def relevance(movie):
          genre_sim = 1 - spatial.distance.cosine(movie[2], session['user_genre'])
          mood_sim = 1 - spatial.distance.cosine(movie[3], session['user_moods'])
-         return (1.5 * genre_sim + mood_sim) * (movie[1]**(1/float(7)))
+         return (2.3 * genre_sim + mood_sim) * (movie[1]**(1/float(11)))
       
       movies.sort(reverse=True, key=relevance)
       for i in range(20):
