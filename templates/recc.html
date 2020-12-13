@@ -18,10 +18,10 @@
   <div class="card-columns">
     {% for title in recc_list %}
     <div class="card">
-      <img class="card-img-top" src= {{ title[4] }} alt="Card image">
+      <img class="card-img-top" src= {{ title[3] }} alt="{{ title[0] }}">
       <div class="card-body">
         <h4 class="card-title">{{ title[0] }}</h4>
-        <p class="card-text">{{ title[5] }}</p>
+        <p class="card-text">{{ title[2] }}</p>
       </div>
     </div>
     {% endfor %}
