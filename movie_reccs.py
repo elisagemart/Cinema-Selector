@@ -28,8 +28,9 @@ def format_mov(mov):
 #makes the max of an array 1
 def normalize(arr):
    big = max(arr)
-   for i in range(len(arr)):
-      arr[i] = arr[i] / big
+   if big > 0:
+      for i in range(len(arr)):
+         arr[i] = arr[i] / big
 
 @app.route('/index')
 @app.route('/')
@@ -47,7 +48,7 @@ def quiz():
       questions = []
 
       #change this to change the number of questions
-      for k in range(2):
+      for k in range(10):
          #pick an answer at random
          choices = query_db("SELECT * FROM movies WHERE Popularity > 30 ORDER BY RANDOM() LIMIT 2;")
          mov1 = choices[0][1]
@@ -156,18 +157,18 @@ def update():
    if len(existing) > 0:
       current = existing[0]
       for i in range(len(session['user_genre'])):
-         new_genre[i] = (float(session['user_genre'][i])/float(current[5])) + current[1][i]
+         new_genre[i] = (float(session['user_genre'][i])/float(current[5])) + json.loads(current[1])[i]
       normalize(new_genre)
       for i in range(len(session['user_actors'])):
-         new_actors[i] = (float(session['user_actors'][i])/float(current[5])) + current[2][i]
+         new_actors[i] = (float(session['user_actors'][i])/float(current[5])) + json.loads(current[2])[i]
       normalize(new_actors)
       for i in range(len(session['user_dir'])):
-         new_dir[i] = (float(session['user_dir'][i])/float(current[5])) + current[3][i]
+         new_dir[i] = (float(session['user_dir'][i])/float(current[5])) + json.loads(current[3])[i]
       normalize(new_dir)
       for i in range(len(session['user_keys'])):
-         new_keys[i] = (float(session['user_keys'][i])/float(current[5])) + current[4][i]
+         new_keys[i] = (float(session['user_keys'][i])/float(current[5])) + json.loads(current[4])[i]
       normalize(new_keys)
-      query_db("UPDATE user_reccs SET Genre_Vector = \"" + str(new_genre) + "\", Actor_Vector = \"" + str(new_actors) + "\", Director_Vector = \"" + str(new_dir) + "\", Keyword_Vector = \"" + str(new_keys) + "\", Count = \"" + str(current[5] + 1) + "\" WHERE Title = \"" + title +"\" LIMIT 1")
+      query_db("UPDATE user_reccs SET Genre_Vector = \"" + str(new_genre) + "\", Actor_Vector = \"" + str(new_actors) + "\", Director_Vector = \"" + str(new_dir) + "\", Keyword_Vector = \"" + str(new_keys) + "\", Count = \"" + str(current[5] + 1) + "\" WHERE Title = \"" + title +"\"")
       get_db().commit()
    else:
       for i in range(len(session['user_genre'])):
