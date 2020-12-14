@@ -10,51 +10,20 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <style>
-    .jumbotron {
-      padding: 30px;
-      background: #B4131D;
-    }
-
-    .text-white {
-      text-decoration-color: #F6F0D5;
-      font-family: "didot";
-    }
-
-    .text-red {
-      text-decoration-color: #B4131D;
-      font-family: "didot";
-    }
-
-    .popcorn-background {
-      background-image: url(./popcorn.jpg);
-    }
-
-    .button-format {
-      background-color: #B4131D;
-      padding: 25px 40px;
-      margin-top: 100px;
-    }
-
-    .header-format {
-      text-decoration-color: #F6F0D5;
-      background-color: #B4131D;
-      padding: 0px 5px;
-      margin-top: 5px;
-      margin-left: 5px;
-      margin-bottom: 5px;
-    }
-  </style>
 
 </head>
 
 <body class="popcorn-background"> 
 
-<div>
-  <form action="{{ url_for('index') }}" method="get">
-    <button class="btn btn-lg active header-format text-white"><strong>Cinema Selector</strong></button>
-  </form>
-</div>
+  <nav class="navbar navbar-default fixed-top" style="background-color: #B4131D;">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="{{ url_for('index') }}"> 
+          <img src="{{ url_for('static',    filename='logo.png') }}" height="45" class="d-inline-block align-top" alt=""> 
+        </a>
+      </div>
+    </div>
+  </nav>
 
 <div class="jumbotron text-center text-white">
       <h3>Here are a selection of reccomendations, based on your mood:</h3>
