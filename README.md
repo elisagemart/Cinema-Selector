@@ -12,7 +12,7 @@ To run the app on your device, run:
 The app will run at http://127.0.0.1:5000/
 
 ## What it Does
-Cinema Selector offers users a series of choices between two movies. They pick the poster that looks more appealing. 
+Cinema Selector is intended to solve the dilemma of finding a movie to watch. The app is built on the premise that people often know what they are in the mood for but have a hard time articulating it enough to search directly for something to watch. Instead of a paralyzing searchbar, Cinema Selector offers users a series of choices between two movies. They pick the poster that looks more appealing. 
 
 ![quiz_screenshot](https://user-images.githubusercontent.com/10715620/102035583-49eb4700-3d86-11eb-8fe0-9119a3d1a72a.png)
 
