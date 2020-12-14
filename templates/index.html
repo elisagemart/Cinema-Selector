@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Movie Reccomendations</title>
+  <title>Cinema Selector</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -10,15 +10,62 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    .jumbotron-1 {
+      padding: 50px;
+      margin-bottom: -20px;
+      background: #B4131D;
+    }
+
+    .jumbotron-2 {
+      padding: 20px;
+      margin-top: 0px;
+      background: #B4131D;
+    }
+
+    .text-white {
+      text-decoration-color: #F6F0D5;
+      font-family: "didot";
+    }
+
+    .popcorn-background {
+      background-image: url(./popcorn.jpg);
+    }
+
+    .button-format {
+      background-color: #B4131D;
+      padding: 25px 40px;
+      margin-top: 100px;
+    }
+
+    .header-format {
+      padding: 0px 5px;
+      margin-top: 5px;
+      margin-left: 5px;
+    }
+  </style>
 </head>
-<body> 
+
+<nav class="navbar navbar-default">
+  <form action="{{ url_for('quiz') }}" method="get">
+      <button class="btn btn-lg active header-format"><strong>Cinema Selector</strong></button>
+  </form>
+</nav>
+
+<body class="popcorn-background text-white"> 
  
-  <div class="d-flex justify-content-center" style="margin-top: 30vh;">
-    <h1 class="text-primary">Cinema Selector</h1>
+  <div class="jumbotron jumbotron-1 text-center">
+    <h1><strong>CINEMA SELECTOR</strong></h1>
   </div>
-  <div class="d-flex justify-content-center" style="margin-top: 5vh;">
+
+  <div class="jumbotron jumbotron-2 text-center">
+    <h3>Don't know what to watch tonight?</h3>
+    <h4>Click below for custom movie suggestions!</h4>
+  </div>
+
+  <div class="text-center">
     <form action="{{ url_for('quiz') }}" method="get">
-      <button type="submit" class="btn btn-outline-primary btn-lg">Begin</button>
+      <button class="btn btn-lg active button-format text-white"><strong>Get Started</strong></button>
     </form>
   </div>
 
