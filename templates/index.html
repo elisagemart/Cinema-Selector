@@ -13,7 +13,6 @@
   <style>
     .jumbotron-1 {
       padding: 50px;
-      margin-top: -10px;
       margin-bottom: -20px;
       background: #B4131D;
     }
@@ -25,7 +24,7 @@
     }
 
     .text-white {
-      text-decoration-color: #ffffff;
+      text-decoration-color: #F6F0D5;
       font-family: "didot";
     }
 
@@ -38,17 +37,28 @@
       padding: 25px 40px;
       margin-top: 100px;
     }
+
+    .header-format {
+      padding: 0px 5px;
+      margin-top: 5px;
+      margin-left: 5px;
+    }
   </style>
 </head>
 
+<nav class="navbar navbar-default">
+  <form action="{{ url_for('quiz') }}" method="get">
+      <button class="btn btn-lg active header-format"><strong>Cinema Selector</strong></button>
+  </form>
+</nav>
 
-<body class="popcorn-background"> 
+<body class="popcorn-background text-white"> 
  
-  <div class="jumbotron jumbotron-1 text-center text-white">
-    <h1 class=".mb-1"><strong>CINEMA SELECTOR</strong></h1>
+  <div class="jumbotron jumbotron-1 text-center">
+    <h1><strong>CINEMA SELECTOR</strong></h1>
   </div>
 
-  <div class="jumbotron jumbotron-2 text-center text-white">
+  <div class="jumbotron jumbotron-2 text-center">
     <h3>Don't know what to watch tonight?</h3>
     <h4>Click below for custom movie suggestions!</h4>
   </div>
