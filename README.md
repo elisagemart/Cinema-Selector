@@ -30,8 +30,7 @@ Raw data on 5,000 movies from taken from The Movie Database. This data included 
 
 When a user selects a movie during the quiz, that movie's vectors are added to a user's preference vectors. After the quiz is complete, we sort the list of all movies according to the sum of cosign similarities between the genre, actor, director, and keyword vectors for the user and that movie. Each category is given a different weight, and the overall score is weighted by the popularity of the film. The highest scoring films are presented to the user.
 
-![user_reccs](https://user-images.githubusercontent.com/10715620/102036527-af403780-3d88-11eb-8b0c-e834d45101e2.PNG)
-
 The algorithm also incorporates a learning aspect. When the user marks a reccomendation as a good reccomendation, a second table called 'user_reccs' is updated, with the vectors stored there moving towards the overall user preference vectors of the user who marked it. The vectors in this table are used to weight the movie vectors in the previous step. Thus if a certain type of user consistently marks a movie as a good suggestion, that movie will appear more frequently for that type of user. In general, this system allows the app to recognize associations among movies that might not be obvious from their genre, cast, or keywords.
 
+![user_reccs](https://user-images.githubusercontent.com/10715620/102036527-af403780-3d88-11eb-8b0c-e834d45101e2.PNG)
 
