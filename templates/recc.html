@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Movie Reccomendations</title>
+  <title>Movie Recommendations</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -10,11 +10,57 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    .jumbotron {
+      padding: 30px;
+      background: #B4131D;
+    }
+
+    .text-white {
+      text-decoration-color: #F6F0D5;
+      font-family: "didot";
+    }
+
+    .text-red {
+      text-decoration-color: #B4131D;
+      font-family: "didot";
+    }
+
+    .popcorn-background {
+      background-image: url(./popcorn.jpg);
+    }
+
+    .button-format {
+      background-color: #B4131D;
+      padding: 25px 40px;
+      margin-top: 100px;
+    }
+
+    .header-format {
+      text-decoration-color: #F6F0D5;
+      background-color: #B4131D;
+      padding: 0px 5px;
+      margin-top: 5px;
+      margin-left: 5px;
+      margin-bottom: 5px;
+    }
+  </style>
+
 </head>
-<body> 
+
+<body class="popcorn-background"> 
+
+<div>
+  <form action="{{ url_for('index') }}" method="get">
+    <button class="btn btn-lg active header-format text-white"><strong>Cinema Selector</strong></button>
+  </form>
+</div>
+
+<div class="jumbotron text-center text-white">
+      <h3>Here are a selection of reccomendations, based on your mood:</h3>
+</div>
  
 <div class="container">
-  <h3>Here are a selection of reccomendations, based on your mood:</h3>
   <div class="card-columns">
     {% for title in recc_list %}
     <div class="card">
