@@ -16,9 +16,7 @@
   color: white;
 }
 
-.popcorn-background {
-  background: url('./static/popcorn.jpg');
-}
+.popcorn-background {}
 
 .button-format {
   background-color: #B4131D;
