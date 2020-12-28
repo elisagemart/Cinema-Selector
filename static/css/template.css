@@ -66,7 +66,7 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: rgb(206, 1, 16);
-  text-align: left;
+  text-align: center;
   background-color: #fff;
 }
 
@@ -9911,7 +9911,7 @@ button.bg-black:focus {
 }
 
 a.text-primary:hover, a.text-primary:focus {
-  color: rgb(190, 0, 0), 1, 16) !important;
+  color: rgb(190, 0, 0)) !important;
 }
 
 .text-secondary {
@@ -10175,23 +10175,46 @@ body {
     background-color: #fff;
   }
   #mainNav.navbar-shrink .navbar-brand {
-    color: #800000;
+    color: rgb(206, 1, 16);
   }
   #mainNav.navbar-shrink .nav-link {
-    color: #800000;
+    color: rgb(206, 1, 16);
     padding: 1.5rem 1.5rem 1.25rem;
     border-bottom: 0.25rem solid transparent;
   }
   #mainNav.navbar-shrink .nav-link:hover {
-    color: #d11414;
+    color: rgb(248, 25, 25);
   }
   #mainNav.navbar-shrink .nav-link:active {
-    color: #d11414;
+    color: rgb(248, 25, 25);
   }
   #mainNav.navbar-shrink .nav-link.active {
-    color: #d11414;
+    color: rgb(248, 25, 25);
     outline: none;
-    border-bottom: 0.25rem solid #d11414;
+    border-bottom: 0.25rem solid rgb(248, 25, 25);
+  }
+
+  #mainNav.navbar-q {
+    background-color: rgb(206, 1, 16);
+  }
+  #mainNav.navbar-q .navbar-brand {
+    color: white;
+  }
+  #mainNav.navbar-q .nav-link {
+    color: white;
+    padding: 1.5rem 1.5rem 1.25rem;
+    border-bottom: 0.25rem solid transparent;
+  }
+  #mainNav.navbar-q .nav-link:hover {
+    color: #ffd1d1;
+  }
+  #mainNav.navbar-q .nav-link:active {
+    color: #ffd1d1;
+  }
+  #mainNav.navbar-q .nav-link.active {
+    color: #ffd1d1;
+    outline: none;
+    border-bottom: 0.25rem solid #ffd1d1;
   }
 }
 
@@ -10203,6 +10226,17 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.15rem;
   border: 0;
+}
+.masthead-q {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  background: rgb(255, 255, 255);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
 }
 
 .masthead {
