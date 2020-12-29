@@ -83,7 +83,7 @@ def start():
 def quiz():
 
    #list of how many options we pull questiosn from at each stage
-   q_options = [2,2,2,2,2,2,2,8,8,16,16,32,32,64,64]
+   q_options = [2,2,2,2,2,2,2,16,18,20,22,24,26,28,30]
 
    #if we haven't asked any questions yet, load the initial data
    if (not 'user_genre' in session) or session['q_asked'] == -1:
@@ -96,21 +96,21 @@ def quiz():
       session['user_keys'] = [0] * len(format_mov(sample[0])[7])
 
       #initialize number of questions
-      session['q_asked'] = 0
+      session['q_asked'] = 7
 
       #update user's initial genre vector
       if request.args['answer'] == 'action':
-         session['user_genre'][3] = 2
+         session['user_genre'][3] = 3
       elif request.args['answer'] == 'comedy':
-         session['user_genre'][1] = 2
+         session['user_genre'][1] = 3
       elif request.args['answer'] == 'horror':
-         session['user_genre'][7] = 2
+         session['user_genre'][7] = 3
       elif request.args['answer'] == 'romance':
-         session['user_genre'][4] = 2
+         session['user_genre'][4] = 3
       elif request.args['answer'] == 'family':
-         session['user_genre'][8] = 2
+         session['user_genre'][8] = 3
       else:
-         session['q_asked'] = 7
+         session['q_asked'] = 0
 
    #otherwise, update based on the question they just answered
    else:
@@ -151,12 +151,10 @@ def quiz():
    #else give user new questions
    else:
       #get set of choices; more options for later questions
-      choices_raw = query_db("SELECT * FROM movies WHERE Popularity > 30 ORDER BY RANDOM() LIMIT " + str(q_options[session['q_asked']]) + ";")
+      choices_raw = query_db("SELECT * FROM movies WHERE Popularity > 20 ORDER BY RANDOM() LIMIT " + str(q_options[session['q_asked']]) + ";")
       choices = []
       for mov in choices_raw:
          choices.append(format_mov(mov))
-
-      print(relevance(choices[0]))
 
       #sort based on computed relevance
       choices.sort(reverse=True, key=relevance)
