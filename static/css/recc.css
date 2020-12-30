@@ -1,3 +1,36 @@
 .image{
     max-width: 200px;
 }
+
+.jumbotron {
+margin-top: 13vh;
+  padding: 20px;
+  background: #B4131D;
+}
+
+.text-white {
+  text-decoration-color: #F6F0D5;
+}
+
+.text-red {
+  text-decoration-color: #B4131D;
+}
+
+.popcorn-background {
+  background-image: url(./popcorn.jpg);
+}
+
+.button-format {
+  background-color: #B4131D;
+  padding: 25px 40px;
+  margin-top: 100px;
+}
+
+.header-format {
+  text-decoration-color: #F6F0D5;
+  background-color: #B4131D;
+  padding: 0px 5px;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}

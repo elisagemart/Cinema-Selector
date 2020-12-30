@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X7 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="6.66666in" height="6.66666in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 6667 6667"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#373435;stroke-width:6.94488}
+    .fil0 {fill:none}
+    .fil1 {fill:#9C9C9C}
+    .fil2 {fill:#BA0000}
+   ]]>
+  </style>
+   <clipPath id="id0">
+    <rect x="2333" y="2707" width="2000" height="1253"/>
+   </clipPath>
+ </defs>
+ <g id="Layer_x0020_1" visibility="hidden">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g style="clip-path:url(#id0)">
+   <image x="2333" y="2707" width="2000" height="1253" xlink:href="logo_Images\logo_ImgID1.png"/>
+  </g>
+ </g>
+ <g id="logo" visibility="hidden">
+  <metadata id="CorelCorpID_1Corel-Layer"/>
+  <rect class="fil0 str0" x="2477" y="3023" width="397" height="227"/>
+  <polygon class="fil0 str0" points="2533,2947 2477,2950 2473,3007 2493,3007 "/>
+  <polygon class="fil0 str0" points="2617,3007 2557,3007 2597,2947 2660,2947 "/>
+  <polygon class="fil0 str0" points="2790,2947 2727,2943 2687,3003 2747,3003 "/>
+  <polygon class="fil0 str0" points="2870,3007 2820,3003 2853,2947 2870,2947 "/>
+  <polygon class="fil0 str0" points="2473,2943 2460,2887 2480,2880 2530,2930 "/>
+  <polygon class="fil0 str0" points="2597,2910 2543,2870 2597,2847 2650,2897 "/>
+  <polygon class="fil0 str0" points="2720,2883 2667,2833 2723,2817 2780,2867 "/>
+  <polygon class="fil1 str0" points="2843,2850 2793,2807 2843,2790 2860,2847 "/>
+ </g>
+ <g id="logo_x0020_color" visibility="hidden">
+  <metadata id="CorelCorpID_2Corel-Layer"/>
+  <polygon class="fil2" points="5317,3238 1248,3238 1248,5563 5317,5563 "/>
+  <polygon class="fil2" points="1419,3067 1829,2452 1248,2486 1214,3067 "/>
+  <polygon class="fil2" points="2479,2452 2069,3067 2684,3067 3129,2452 "/>
+  <polygon class="fil2" points="3812,2417 3402,3033 4017,3033 4462,2452 "/>
+  <polygon class="fil2" points="5112,2452 4770,3033 5282,3067 5282,2452 "/>
+  <polygon class="fil2" points="1795,2281 1282,1768 1077,1836 1214,2417 "/>
+  <polygon class="fil2" points="1932,1665 2479,2075 3026,1939 2479,1426 "/>
+  <polygon class="fil2" points="3197,1289 3744,1802 4359,1631 3778,1118 "/>
+  <polygon class="fil2" points="4496,1016 5009,1460 5180,1426 5009,845 "/>
+ </g>
+ <g id="box">
+  <metadata id="CorelCorpID_3Corel-Layer"/>
+  <rect class="fil0 str0" x="510" y="456" width="5667" height="5667"/>
+  <path class="fil2" d="M6177 456l-5667 0 0 5666 5667 0 0 -5666zm-1168 1004l-513 -444 513 -171 171 581 -171 34zm-650 171l-615 171 -547 -513 581 -171 581 513zm-1880 -205l547 513 -547 136 -547 -410 547 -239zm-1197 342l513 513 -581 136 -137 -581 205 -68zm4000 684l0 615 -512 -34 342 -581 170 0zm-820 0l-445 581 -615 0 410 -616 650 35zm-1333 0l-445 615 -615 0 410 -615 650 0zm-1300 0l-410 615 -205 0 34 -581 581 -34zm-581 786l4069 0 0 2325 -4069 0 0 -2325z"/>
+ </g>
+</svg>

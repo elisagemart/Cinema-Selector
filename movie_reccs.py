@@ -20,7 +20,6 @@ def query_db(query, args=(), one=False):
     cur.close()
     return (rv[0] if rv else None) if one else rv
 
-
 #returns movies in format [Title, Pop, Overview, Poster, <genre_vec>, <actor_vec>, <dir_vec>, <key_vec>]
 def format_mov(mov):
    return [mov[1], mov[2], mov[3], mov[4], json.loads(mov[5]), json.loads(mov[6]), json.loads(mov[7]), json.loads(mov[8])]
@@ -32,6 +31,41 @@ def normalize(arr):
       for i in range(len(arr)):
          arr[i] = arr[i] / big
 
+#add an adjustment array to a movies vector at 10% strength
+def adjust(arr, adj):
+   for i in range(len(arr)):
+      arr[i] = arr[i] + 0.1*adj[i]
+            
+#algorithm for determining a movie's relevance to the user.
+def relevance(movie):
+   mov_genre = movie[4]
+   mov_actor = movie[5]
+   mov_dir = movie[6]
+   mov_keys = movie[7]
+
+   prev = query_db("SELECT * FROM user_reccs WHERE title = \"" + movie[0] + "\"")
+   if len(prev) > 0:
+      prev_score = prev[0]
+      adjust(mov_genre, json.loads(prev_score[1]))
+      adjust(mov_actor, json.loads(prev_score[2]))
+      adjust(mov_dir, json.loads(prev_score[3]))
+      adjust(mov_keys, json.loads(prev_score[4]))
+
+   genre_sim = 1 - spatial.distance.cosine(mov_genre, session['user_genre'])
+   if math.isnan(genre_sim):
+      genre_sim = 0
+   actor_sim = 1 - spatial.distance.cosine(mov_actor, session['user_actors'])
+   if math.isnan(actor_sim):
+      actor_sim = 0
+   dir_sim = 1 - spatial.distance.cosine(mov_dir, session['user_dir'])
+   if math.isnan(dir_sim):
+      dir_sim = 0
+   key_sim = 1 - spatial.distance.cosine(mov_keys, session['user_keys'])
+   if math.isnan(key_sim):
+      key_sim = 0
+   rel = (2 * genre_sim + 0.6*actor_sim + dir_sim + key_sim) * (3 + float(movie[1])**(1/float(11)))
+   return rel
+
 @app.route('/index')
 @app.route('/')
 def index():
@@ -41,37 +75,47 @@ def index():
    
    return render_template('index.html')
 
+@app.route('/start')
+def start():
+   return render_template('genre_pref.html')
+
 @app.route('/quiz', methods=['POST', 'GET'])
 def quiz():
-   if (not 'user_genre' in session) or session['q_asked'] == -1:   
-      #load questions, taking answers at random
-      questions = []
 
-      #change this to change the number of questions
-      for k in range(10):
-         #pick an answer at random
-         choices = query_db("SELECT * FROM movies WHERE Popularity > 30 ORDER BY RANDOM() LIMIT 2;")
-         mov1 = choices[0][1]
-         mov2 = choices[1][1]
+   #list of how many options we pull questiosn from at each stage
+   q_options = [2,2,2,2,2,2,2,16,18,20,22,24,26,28,30]
 
-         questions.append([mov1, mov2])
+   #if we haven't asked any questions yet, load the initial data
+   if (not 'user_genre' in session) or session['q_asked'] == -1:
 
-         if k == 0:
-            #set reccomendation vectors to empty
-            session['user_genre'] = [0]*len(format_mov(choices[0])[4])
-            session['user_actors'] = [0]*len(format_mov(choices[0])[5])
-            session['user_dir'] = [0] * len(format_mov(choices[0])[6])
-            session['user_keys'] = [0] * len(format_mov(choices[0])[7])
+      #load initial user vectors, based on sample data from db
+      sample = query_db("SELECT * FROM movies LIMIT 1")
+      session['user_genre'] = [0]*len(format_mov(sample[0])[4])
+      session['user_actors'] = [0]*len(format_mov(sample[0])[5])
+      session['user_dir'] = [0] * len(format_mov(sample[0])[6])
+      session['user_keys'] = [0] * len(format_mov(sample[0])[7])
 
-      session['questions'] = questions
-      print(questions)
+      #initialize number of questions
+      session['q_asked'] = 7
 
-      #set initial number of questions to 0
-      session['q_asked'] = 0
+      #update user's initial genre vector
+      if request.args['answer'] == 'action':
+         session['user_genre'][3] = 3
+      elif request.args['answer'] == 'comedy':
+         session['user_genre'][1] = 3
+      elif request.args['answer'] == 'horror':
+         session['user_genre'][7] = 3
+      elif request.args['answer'] == 'romance':
+         session['user_genre'][4] = 3
+      elif request.args['answer'] == 'family':
+         session['user_genre'][8] = 3
+      else:
+         session['q_asked'] = 0
 
+   #otherwise, update based on the question they just answered
    else:
       #update user's vector based on their responses
-      answer = format_mov(query_db("SELECT * FROM movies WHERE title = \""+str(session['questions'][session['q_asked']][int(request.args['answer'])])+"\"")[0])
+      answer = session['question'][int(request.args['answer'])]
       answer_genres = answer[4]
       answer_actors = answer[5]
       answer_dir = answer[6]
@@ -89,7 +133,7 @@ def quiz():
       session['q_asked'] = session['q_asked'] + 1
 
    #if user has been asked enough questions, make reccomendation
-   if session['q_asked'] >= len(session['questions']):
+   if session['q_asked'] >= len(q_options):
      
       #make reccomendation
       movies_raw = query_db("SELECT * FROM movies")
@@ -97,41 +141,6 @@ def quiz():
       movies = []
       for mov in movies_raw:
          movies.append(format_mov(mov))
-      
-      #add an adjustment array to a movies vector at 10% strength
-      def adjust(arr, adj):
-         for i in range(len(arr)):
-            arr[i] = arr[i] + 0.1*adj[i]
-            
-      #algorithm for determining a movie's relevance to the user.
-      def relevance(movie):
-         mov_genre = movie[4]
-         mov_actor = movie[5]
-         mov_dir = movie[6]
-         mov_keys = movie[7]
-
-         prev = query_db("SELECT * FROM user_reccs WHERE title = \"" + movie[0] + "\"")
-         if len(prev) > 0:
-            prev_score = prev[0]
-            adjust(mov_genre, json.loads(prev_score[1]))
-            adjust(mov_actor, json.loads(prev_score[2]))
-            adjust(mov_dir, json.loads(prev_score[3]))
-            adjust(mov_keys, json.loads(prev_score[4]))
-
-         genre_sim = 1 - spatial.distance.cosine(mov_genre, session['user_genre'])
-         if math.isnan(genre_sim):
-            genre_sim = 0
-         actor_sim = 1 - spatial.distance.cosine(mov_actor, session['user_actors'])
-         if math.isnan(actor_sim):
-            actor_sim = 0
-         dir_sim = 1 - spatial.distance.cosine(mov_dir, session['user_dir'])
-         if math.isnan(dir_sim):
-            dir_sim = 0
-         key_sim = 1 - spatial.distance.cosine(mov_keys, session['user_keys'])
-         if math.isnan(key_sim):
-            key_sim = 0
-         rel = (2 * genre_sim + 0.6*actor_sim + dir_sim + key_sim) * (3 + float(movie[1])**(1/float(11)))
-         return rel
       
       movies.sort(reverse=True, key=relevance)
       recc_list = movies[0:18]
@@ -141,8 +150,18 @@ def quiz():
 
    #else give user new questions
    else:
-      answer1=format_mov(query_db("SELECT * FROM movies WHERE title = \""+str(session['questions'][session['q_asked']][0]) + "\"")[0])
-      answer2=format_mov(query_db("SELECT * FROM movies WHERE title = \""+str(session['questions'][session['q_asked']][1]) + "\"")[0])
+      #get set of choices; more options for later questions
+      choices_raw = query_db("SELECT * FROM movies WHERE Popularity > 20 ORDER BY RANDOM() LIMIT " + str(q_options[session['q_asked']]) + ";")
+      choices = []
+      for mov in choices_raw:
+         choices.append(format_mov(mov))
+
+      #sort based on computed relevance
+      choices.sort(reverse=True, key=relevance)
+
+      answer1=choices[0]
+      answer2=choices[1]
+      session['question'] = [answer1, answer2]
       return render_template('quiz.html', answer1 = answer1, answer2 = answer2)
 
 #code to update the user_recc db
