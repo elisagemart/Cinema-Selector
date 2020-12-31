@@ -67,6 +67,10 @@
           console.log("TEST")
           var div= document.createElement("div");
           div.className += "overlay";
+          var elem = document.createElement("img");
+          elem.setAttribute("src", "{{url_for('static', filename='loading.gif')}}");
+          elem.className += "loading";
+          div.appendChild(elem)
           document.body.appendChild(div);
           }
 

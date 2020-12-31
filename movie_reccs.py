@@ -24,7 +24,7 @@ def query_db(query, args=(), one=False):
 
 #returns movies in format [Title, Pop, Overview, Poster, <genre_vec>, <actor_vec>, <dir_vec>, <key_vec>]
 def format_mov(mov):
-   return [mov[1], mov[2], mov[3], mov[4], json.loads(mov[5]), json.loads(mov[6]), json.loads(mov[7]), json.loads(mov[8])]
+   return [mov[1], mov[2], mov[4], mov[5], json.loads(mov[6]), json.loads(mov[7]), json.loads(mov[8]), json.loads(mov[9])]
 
 #makes the max of an array 1
 def normalize(arr):
@@ -45,7 +45,7 @@ def relevance(movie):
    mov_dir = movie[6]
    mov_keys = movie[7]
 
-   prev = query_db("SELECT * FROM user_recs WHERE title = \"" + movie[0] + "\"")
+   prev = query_db("SELECT * FROM user_recs WHERE Title = \"" + movie[0] + "\"")
    if len(prev) > 0:
       prev_score = prev[0]
       adjust(mov_genre, json.loads(prev_score[1]))
