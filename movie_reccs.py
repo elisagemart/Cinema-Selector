@@ -2,11 +2,13 @@ from flask import Flask, render_template, request, session, g
 import pandas, random, math, json
 from scipy import spatial
 import sqlite3
+import os
 
 app = Flask(__name__)
 app.secret_key="asdkjnah"
 
-DATABASE = 'MoviesDB.db'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, "Movies.db")
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -43,7 +45,7 @@ def relevance(movie):
    mov_dir = movie[6]
    mov_keys = movie[7]
 
-   prev = query_db("SELECT * FROM user_reccs WHERE title = \"" + movie[0] + "\"")
+   prev = query_db("SELECT * FROM user_recs WHERE title = \"" + movie[0] + "\"")
    if len(prev) > 0:
       prev_score = prev[0]
       adjust(mov_genre, json.loads(prev_score[1]))
@@ -168,7 +170,7 @@ def quiz():
 @app.route('/update', methods=['POST', 'GET'])
 def update():
    title = request.args['title']
-   existing = query_db("SELECT * FROM user_reccs WHERE title =\"" + title + "\"")
+   existing = query_db("SELECT * FROM user_recs WHERE title =\"" + title + "\"")
    new_genre = [0]*len(session['user_genre'])
    new_actors = [0]*len(session['user_actors'])
    new_dir = [0]*len(session['user_dir'])
@@ -187,7 +189,7 @@ def update():
       for i in range(len(session['user_keys'])):
          new_keys[i] = (float(session['user_keys'][i])/float(current[5])) + json.loads(current[4])[i]
       normalize(new_keys)
-      query_db("UPDATE user_reccs SET Genre_Vector = \"" + str(new_genre) + "\", Actor_Vector = \"" + str(new_actors) + "\", Director_Vector = \"" + str(new_dir) + "\", Keyword_Vector = \"" + str(new_keys) + "\", Count = \"" + str(current[5] + 1) + "\" WHERE Title = \"" + title +"\"")
+      query_db("UPDATE user_recs SET Genre_Vector = \"" + str(new_genre) + "\", Actor_Vector = \"" + str(new_actors) + "\", Director_Vector = \"" + str(new_dir) + "\", Keyword_Vector = \"" + str(new_keys) + "\", Count = \"" + str(current[5] + 1) + "\" WHERE Title = \"" + title +"\"")
       get_db().commit()
    else:
       for i in range(len(session['user_genre'])):
@@ -202,7 +204,7 @@ def update():
       for i in range(len(session['user_keys'])):
          new_keys[i] = session['user_keys'][i]
       normalize(new_keys)
-      query_db("INSERT INTO user_reccs (Title, Genre_Vector, Actor_Vector, Director_Vector, Keyword_Vector, Count) VALUES (\"" + title + "\", \"" + str(new_genre) + "\", \"" + str(new_actors) + "\", \"" + str(new_dir) + "\", \"" + str(new_keys) + "\", \"" + str(1) + "\")")
+      query_db("INSERT INTO user_recs (Title, Genre_Vector, Actor_Vector, Director_Vector, Keyword_Vector, Count) VALUES (\"" + title + "\", \"" + str(new_genre) + "\", \"" + str(new_actors) + "\", \"" + str(new_dir) + "\", \"" + str(new_keys) + "\", \"" + str(1) + "\")")
       get_db().commit()
    
 

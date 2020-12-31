@@ -38,12 +38,12 @@
             <h2>Which would you prefer?</h2>
             <div class="row h-100 justify-content-center align-items-center">
               <div class="card" style="max-width: 24vw;">
-                <a class="card-block stretched-link text-decoration-none" href="{{ url_for('quiz', answer=0) }}">
+                <a id="mov1" class="card-block stretched-link text-decoration-none" href="{{ url_for('quiz', answer=0) }}">
               <img class="card-img-top" src= {{ answer1[3] }} alt=" {{answer1[0]}}">
               </a>
             </div>
               <div class="card" style="max-width: 24vw;">
-                <a class="card-block stretched-link text-decoration-none" href="{{ url_for('quiz', answer=1) }}">
+                <a id="mov2" class="card-block stretched-link text-decoration-none" href="{{ url_for('quiz', answer=1) }}">
                 <img class="card-img-top" src= {{ answer2[3] }} alt="{{answer2[0]}}">
                 </a>
               </div>
@@ -57,5 +57,19 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Third party plugin JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <script type="text/javascript"> 
+          document.getElementById("mov1").onclick = disableScreen;
+          document.getElementById("mov2").onclick = disableScreen;
+
+          function disableScreen() {
+          // creates <div class="overlay"></div> and 
+          // adds it to the DOM
+          console.log("TEST")
+          var div= document.createElement("div");
+          div.className += "overlay";
+          document.body.appendChild(div);
+          }
+
+      </script> 
     </body>
 </html>

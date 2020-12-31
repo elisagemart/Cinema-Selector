@@ -70,6 +70,18 @@ body {
   background-color: #fff;
 }
 
+.overlay {
+  background-color:#ffffff;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  top: 0px;
+  left: 0px;
+  opacity: .7; /* in FireFox */ 
+  filter: alpha(opacity=70); /* in IE */
+}
+
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;
 }
