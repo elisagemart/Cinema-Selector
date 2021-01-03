@@ -37,3 +37,7 @@ The algorithm also incorporates a learning aspect. When the user marks a recomen
 
 ![user_recs](https://user-images.githubusercontent.com/10715620/103488191-30ab4880-4dd0-11eb-891e-a37cb7e95f0c.PNG)
 
+## Credits
+Web app design by Eli Sage-Martinson, Saijel Verma, and Nikhil Patel.
+
+Home Page design based on the Greyscale Template by Start Bootstrap, licensed under [MIT](https://github.com/StartBootstrap/startbootstrap-grayscale/blob/master/LICENSE)
