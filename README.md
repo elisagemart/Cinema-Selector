@@ -1,7 +1,7 @@
 # Cinema Selector
 
 ## Web App
-To use a live version of the web app, visit www.cinemaselector.pythonanywhere.com.
+To use a live version of the web app, visit http://cinemaselector.pythonanywhere.com/
 
 ## Installation
 Cinema Selector requires Python 3 and several packages to run correctly. To install the required packages, run:
