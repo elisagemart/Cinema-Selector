@@ -38,12 +38,13 @@
             <h2>Do you have a genre preference?</h2>
             <form action = "{{url_for('quiz')}}" method="post"> 
             <div class="btn-group" role="group" aria-label="Genre" style="margin-top: 20vh;">
-                    <a class="btn btn-primary" role="button" href="{{url_for('quiz', answer ='action')}}">Action</a>
-                    <a class="btn btn-primary" role="button" href="{{url_for('quiz', answer ='comedy')}}">Comedy</a>
-                    <a class="btn btn-primary" role="button" href="{{url_for('quiz', answer ='horror')}}">Horror</a>
-                    <a class="btn btn-primary" role="button" href="{{url_for('quiz', answer ='romance')}}">Romance</a>
-                    <a class="btn btn-primary" role="button" href="{{url_for('quiz', answer ='family')}}">Family</a>
-                    <a class="btn btn-primary" role="button" href="{{url_for('quiz', answer ='none')}}">No Preference</a>
+                    <a id="btn0" class="btn btn-primary" role="button" href="{{url_for('quiz', answer ='action')}}">Action</a>
+                    <a id="btn1" class="btn btn-primary" role="button" href="{{url_for('quiz', answer ='comedy')}}">Comedy</a>
+                    <a id="btn2" class="btn btn-primary" role="button" href="{{url_for('quiz', answer ='drama')}}">Drama</a>
+                    <a id="btn3" class="btn btn-primary" role="button" href="{{url_for('quiz', answer ='horror')}}">Horror</a>
+                    <a id="btn4" class="btn btn-primary" role="button" href="{{url_for('quiz', answer ='romance')}}">Romance</a>
+                    <a id="btn5" class="btn btn-primary" role="button" href="{{url_for('quiz', answer ='family')}}">Family</a>
+                    <a id="btn6" class="btn btn-primary" role="button" href="{{url_for('quiz', answer ='none')}}">No Preference</a>
               </div>
             </form>
           </div>
@@ -55,5 +56,25 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Third party plugin JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <script type="text/javascript"> 
+            for(var i = 0; i < 7; i++){
+                document.getElementById("btn"+i).onclick = disableScreen;
+            }
+  
+            function disableScreen() {
+            // creates <div class="overlay"></div> and 
+            // adds it to the DOM
+            console.log("TEST")
+            var div= document.createElement("div");
+            div.className += "overlay";
+            var elem = document.createElement("img");
+            elem.setAttribute("src", "{{url_for('static', filename='loading.gif')}}");
+            elem.className += "loading";
+            div.appendChild(elem)
+            document.body.appendChild(div);
+            }
+  
+        </script> 
+    
     </body>
 </html>
