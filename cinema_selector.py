@@ -6,7 +6,7 @@ import os
 import timeit
 
 app = Flask(__name__)
-app.secret_key="asdkjnah"
+app.secret_key="asdkjnah213iuhewr"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASE = os.path.join(BASE_DIR, "Movies.db")
@@ -82,7 +82,7 @@ def relevance(movie):
    com_sim = 1 - spatial.distance.cosine(mov_companies, session['user_companies'])
    if math.isnan(com_sim):
       com_sim = 0
-   rel = (2 * genre_sim + 0.6*actor_sim + dir_sim + key_sim + 0.3 * com_sim) * (5 + float(movie[1])**(1/float(11)))
+   rel = (2 * genre_sim + 0.6*actor_sim + dir_sim + key_sim + (0.2 *com_sim)) * (5 + float(movie[1])**(1/float(11)))
    return rel
 
 @app.route('/index')
@@ -129,6 +129,7 @@ def quiz():
          session['user_genre'][7] = 3
       elif request.args['answer'] == 'romance':
          session['user_genre'][4] = 3
+         session['user_genre'][8] = -3
       elif request.args['answer'] == 'family':
          session['user_genre'][8] = 3
       else:
@@ -141,7 +142,7 @@ def quiz():
       non_answer = (1 + answer) % 2
       answer = session['question'][answer]
       non_answer = session['question'][non_answer]
-      DF = 0.5
+      DF = 0.1
       for i in range(len(session['user_genre'])):
          session['user_genre'][i] = session['user_genre'][i] + answer[4][i]
          session['user_genre'][i] = session['user_genre'][i] - (DF * non_answer[4][i])
@@ -242,7 +243,7 @@ def update():
       for i in range(len(session['user_companies'])):
          new_companies[i] = (float(session['user_companies'][i])/float(current[6])) + json.loads(current[5])[i]
       normalize(new_companies)
-      query_db("UPDATE user_recs SET Genre_Vector = \"" + str(new_genre) + "\", Actor_Vector = \"" + str(new_actors) + "\", Director_Vector = \"" + str(new_dir) + "\", Keyword_Vector = \"" + str(new_keys) + "\", Keyword_Vector = \"" + str(new_companies) + "\", Count = \"" + str(current[5] + 1) + "\" WHERE Title = \"" + title +"\"")
+      query_db("UPDATE user_recs SET Genre_Vector = \"" + str(new_genre) + "\", Actor_Vector = \"" + str(new_actors) + "\", Director_Vector = \"" + str(new_dir) + "\", Keyword_Vector = \"" + str(new_keys) + "\", Company_Vector = \"" + str(new_companies) + "\", Count = \"" + str(current[6] + 1) + "\" WHERE Title = \"" + str(title) +"\"")
       get_db().commit()
    else:
       for i in range(len(session['user_genre'])):
