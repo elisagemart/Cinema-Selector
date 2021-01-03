@@ -40,4 +40,4 @@ The algorithm also incorporates a learning aspect. When the user marks a recomen
 ## Credits
 Web app design by Eli Sage-Martinson, Saijel Verma, and Nikhil Patel.
 
-Home Page design based on the Greyscale Template by Start Bootstrap, licensed under [MIT](https://github.com/StartBootstrap/startbootstrap-grayscale/blob/master/LICENSE)
+Home Page design based on the Greyscale Template by Start Bootstrap, licensed under [MIT](https://github.com/StartBootstrap/startbootstrap-grayscale/blob/master/LICENSE).
