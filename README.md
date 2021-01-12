@@ -3,14 +3,15 @@
 ## Web App
 To use a live version of the web app, visit http://cinemaselector.pythonanywhere.com/
 
-## Installation
+## Run It Yourself
+You can also download the repository and run the web app on your own device. 
+
 Cinema Selector requires Python 3 and several packages to run correctly. To install the required packages, run:
 `pip install Flask`
 `pip install scipy`
 `pip install sqlite3`
 
-## Setup
-To run the app on your device, run:
+To run the app on your device, type:
 `Python movie_reccs.py`
 The app will run at http://127.0.0.1:5000/
 
